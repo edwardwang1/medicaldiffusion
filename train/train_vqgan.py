@@ -22,6 +22,8 @@ def run(cfg: DictConfig):
     val_dataloader = DataLoader(val_dataset, batch_size=cfg.model.batch_size,
                                 shuffle=False, num_workers=cfg.model.num_workers)
 
+    print("num workers", cfg.model.num_workers)
+
     # automatically adjust learning rate
     bs, base_lr, ngpu, accumulate = cfg.model.batch_size, cfg.model.lr, cfg.model.gpus, cfg.model.accumulate_grad_batches
 
@@ -57,6 +59,8 @@ def run(cfg: DictConfig):
                 version_id_used = version_id
                 log_folder = folder
         if len(log_folder) > 0:
+            if not os.path.exists(os.path.join(base_dir, log_folder, 'checkpoints')):
+                os.mkdir(os.path.join(base_dir, log_folder, 'checkpoints'))
             ckpt_folder = os.path.join(base_dir, log_folder, 'checkpoints')
             for fn in os.listdir(ckpt_folder):
                 if fn == 'latest_checkpoint.ckpt':

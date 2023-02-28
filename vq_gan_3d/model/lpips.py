@@ -104,6 +104,9 @@ class LPIPS(nn.Module):
         val = res[0]
         for l in range(1, len(self.chns)):
             val += res[l]
+
+        val = val.mean()
+        print("perceptual metric return shape", val.shape)
         return val
 
 

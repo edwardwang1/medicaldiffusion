@@ -133,6 +133,7 @@ class VQGAN(pl.LightningModule):
                 perceptual_loss = self.perceptual_model(
                     frames, frames_recon).mean() * self.perceptual_weight
 
+
             # Discriminator loss (turned on after a certain epoch)
             logits_image_fake, pred_image_fake = self.image_discriminator(
                 frames_recon)

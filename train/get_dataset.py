@@ -1,4 +1,4 @@
-from dataset import MRNetDataset, BRATSDataset, ADNIDataset, DUKEDataset, LIDCDataset, DEFAULTDataset
+from dataset import MRNetDataset, BRATSDataset, ADNIDataset, DUKEDataset, LIDCDataset, DEFAULTDataset, RTDataset
 from torch.utils.data import WeightedRandomSampler
 
 
@@ -45,4 +45,12 @@ def get_dataset(cfg):
         val_dataset = DEFAULTDataset(
             root_dir=cfg.dataset.root_dir)
         sampler = None
+        return train_dataset, val_dataset, sampler
+    if cfg.dataset.name == 'RTVOLUMES':
+        train_dataset = RTDataset(
+            data_directory=cfg.dataset.root_dir, patient_list_directory=cfg.dataset.patient_list_directory, val_fold=cfg.dataset.val_fold, testing_holdout_fold=cfg.dataset.testing_holdout_fold)
+        val_dataset = RTDataset(
+            data_directory=cfg.dataset.root_dir, patient_list_directory=cfg.dataset.patient_list_directory, val_fold=cfg.dataset.val_fold, testing_holdout_fold=cfg.dataset.testing_holdout_fold, test=True)
+        sampler = None
+        return train_dataset, val_dataset, sampler
     raise ValueError(f'{cfg.dataset.name} Dataset is not available')

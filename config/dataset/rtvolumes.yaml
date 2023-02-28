@@ -1,0 +1,6 @@
+name: RTVOLUMES
+root_dir: 'C:\Users\Edward\Desktop\medicaldiffusion\data\FakeVolumes\images'
+patient_list_directory: 'C:\Users\Edward\Desktop\medicaldiffusion\data\FakeVolumes\ListsOfFolds2'
+image_channels: 1
+val_fold: 3
+testing_holdout_fold: 4
